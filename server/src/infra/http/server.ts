@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import { linksRoute } from '@/infra/http/routes/links'
+import { linksRoute } from '@/infra/http/routes/create-link'
 import { fastifyCors } from '@fastify/cors'
 import fastify from 'fastify'
 import {
