@@ -23,15 +23,21 @@ export const deleteLinkRoute: FastifyPluginAsyncZod = async app => {
       },
     },
     async (request, reply) => {
-      // Logic to delete the link from the database
       const { linkId } = request.body
 
       console.log(linkId)
 
-      const linkDeleted = await db.delete(schema.links).where(eq(schema.links.id, linkId))
-      console.log(linkDeleted)
+      const [linkDeleted] = await db
+        .delete(schema.links)
+        .where(eq(schema.links.id, linkId))
+        .returning()
 
-      // This is a placeholder and should be replaced with actual database logic
+      if (!linkDeleted) {
+        return reply.status(404).send({
+          message: 'Link not found',
+        })
+      }
+
       return reply.status(200).send({ message: 'Link deleted successfully' })
     }
   )

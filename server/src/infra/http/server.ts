@@ -7,6 +7,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { getLinkRoute } from './routes/get-link'
 import { getLinksRoute } from './routes/get-links'
 
 const app = fastify()
@@ -32,6 +33,7 @@ app.setErrorHandler((error, request, reply) => {
 app.register(createLinkRoute)
 app.register(deleteLinkRoute)
 app.register(getLinksRoute)
+app.register(getLinkRoute)
 
 app
   .listen({
