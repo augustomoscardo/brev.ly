@@ -1,5 +1,5 @@
-import { env } from '@/env'
-import { linksRoute } from '@/infra/http/routes/create-link'
+import { createLinkRoute } from '@/infra/http/routes/create-link'
+import { deleteLinkRoute } from '@/infra/http/routes/delete-link'
 import { fastifyCors } from '@fastify/cors'
 import fastify from 'fastify'
 import {
@@ -7,6 +7,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { getLinksRoute } from './routes/get-links'
 
 const app = fastify()
 
@@ -28,7 +29,9 @@ app.setErrorHandler((error, request, reply) => {
   return reply.status(500).send({ message: 'Internal server error' })
 })
 
-app.register(linksRoute)
+app.register(createLinkRoute)
+app.register(deleteLinkRoute)
+app.register(getLinksRoute)
 
 app
   .listen({
