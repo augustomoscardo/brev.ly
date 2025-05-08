@@ -11,7 +11,17 @@ export const createLinkRoute: FastifyPluginAsyncZod = async app => {
     {
       schema: {
         body: z.object({
-          originalUrl: z.string().url(),
+          originalUrl: z
+            .string()
+            .url()
+            .refine(
+              url => {
+                const { hostname } = new URL(url)
+
+                return hostname.includes('.')
+              },
+              { message: 'Invalid URL' }
+            ),
           shortUrl: z.string(),
         }),
         response: {
