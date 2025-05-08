@@ -44,8 +44,6 @@ export const createLinkRoute: FastifyPluginAsyncZod = async app => {
         .from(schema.links)
         .where(eq(schema.links.shortUrl, shortUrl))
 
-      console.log(linkExists)
-
       if (linkExists[0]) {
         return reply.status(409).send({
           message: 'Link already exists',
