@@ -1,5 +1,8 @@
 import { createLinkRoute } from '@/infra/http/routes/create-link'
 import { deleteLinkRoute } from '@/infra/http/routes/delete-link'
+import { exportLinksCsvRoute } from '@/infra/http/routes/export-links-csv'
+import { getLinkRoute } from '@/infra/http/routes/get-link'
+import { getLinksRoute } from '@/infra/http/routes/get-links'
 import { fastifyCors } from '@fastify/cors'
 import fastify from 'fastify'
 import {
@@ -7,8 +10,6 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
-import { getLinkRoute } from './routes/get-link'
-import { getLinksRoute } from './routes/get-links'
 
 const app = fastify()
 
@@ -34,6 +35,7 @@ app.register(createLinkRoute)
 app.register(deleteLinkRoute)
 app.register(getLinksRoute)
 app.register(getLinkRoute)
+app.register(exportLinksCsvRoute)
 
 app
   .listen({
