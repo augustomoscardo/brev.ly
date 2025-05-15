@@ -5,12 +5,12 @@ export function App() {
   
   return (
     <div className="w-full flex flex-col gap-8">
-      <header className="w-100">
+      <header className="w-full">
         <img src={logoImg} alt="Imagem da logo do Brevly" />
       </header>
 
-      <div className="flex gap-5">
-        <div className="p-8 bg-gray-100 flex flex-col gap-6">
+      <div className="flex gap-5 w-full">
+        <div className="flex-1 p-8 bg-gray-100 flex flex-col gap-6 rounded-lg">
           <h2 className="text-gray-600 text-lg leading-xl font-bold">Novo link</h2>
 
           <div className="flex flex-col gap-4">
@@ -42,7 +42,7 @@ export function App() {
           </button>
         </div>
 
-        <div className="p-8 bg-gray-100">
+        <div className="flex-2 p-8 bg-gray-100 flex flex-col gap-6 rounded-lg">
           <div>
             <h2>Meus links</h2>
             <button type="button">
