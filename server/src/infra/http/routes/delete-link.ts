@@ -6,10 +6,10 @@ import { z } from 'zod'
 
 export const deleteLinkRoute: FastifyPluginAsyncZod = async app => {
   app.delete(
-    '/links',
+    '/links/:linkId',
     {
       schema: {
-        body: z.object({
+        params: z.object({
           linkId: z.string().uuid().describe('Link ID to delete'),
         }),
         response: {
@@ -23,9 +23,7 @@ export const deleteLinkRoute: FastifyPluginAsyncZod = async app => {
       },
     },
     async (request, reply) => {
-      const { linkId } = request.body
-
-      console.log(linkId)
+      const { linkId } = request.params
 
       const [linkDeleted] = await db
         .delete(schema.links)
