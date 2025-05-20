@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Warning } from '@phosphor-icons/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner';
 import { z } from 'zod';
 import { api } from '../services/api';
 
@@ -32,14 +34,31 @@ export function CreateLinkForm() {
 
     reset()
     queryClient.invalidateQueries({ queryKey: ['links'] })
+    
     } catch (error) {
       console.log(error);
+      
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 409) {
+          return toast.error('Erro no cadastro', {
+            description: 'Essa url encurtada já existe.'
+          })
+        } 
+
+        return toast.error('Erro no cadastro.', {
+          description: 'Ocorreu um ao cadastrar url encurtada.'
+        })
+      }
+
+      return toast.error('Erro ao criar o link.', {
+        description: 'Ocorreu um erro inesperado.'
+      })
     }
     
   }
 
   return (
-    <div className="flex-1 p-8 bg-gray-100 flex flex-col gap-6 rounded-lg">
+    <div className="flex-1 w-full p-6 lg:p-8 bg-gray-100 flex flex-col gap-6 rounded-lg">
       <h2 className="text-gray-600 text-lg leading-xl font-bold">Novo link</h2>
 
       <form onSubmit={handleSubmit(createLink)} className="flex flex-col gap-4">

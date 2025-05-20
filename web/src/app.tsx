@@ -19,7 +19,7 @@ export function App() {
   const { data: links } = useQuery({ queryKey: ['links'], queryFn: fetchLinks })
 
   return (
-    <div className=" flex flex-col gap-8 px-3 lg:px-48 pt-8">
+    <div className=" flex flex-col gap-8 px-3 lg:px-48 py-8">
       <header className=" flex items-center justify-center lg:justify-start">
         <img src={logoImg} alt="Imagem da logo do Brevly" />
       </header>
