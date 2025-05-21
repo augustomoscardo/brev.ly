@@ -24,7 +24,7 @@ export function Home() {
         <img src={logoImg} alt="Imagem da logo do Brevly" />
       </header>
 
-      <div className="flex flex-col lg:flex-row items-start gap-5">
+      <div className="flex flex-col lg:flex-row gap-5">
         <CreateLinkForm />
 
         <Links links={links ?? []} />
