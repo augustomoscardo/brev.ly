@@ -44,6 +44,15 @@ export function Links({ links }: LinksProps) {
     }
   }
 
+  async function copyToClipboard(url: string) {
+    try {
+      await navigator.clipboard.writeText(url)
+      toast.success('Link copiado para a área de transferência!')
+    } catch {
+      toast.error('Não foi possível copiar o link.')
+    }
+  }
+
   return (
     <div className="flex-2 w-full flex flex-col gap-5 p-6 lg:p-8 bg-gray-100 rounded-lg">
       <div className="flex justify-between items-center">
@@ -71,17 +80,17 @@ export function Links({ links }: LinksProps) {
         </button>
       </div>
       {links.length > 0 ? (
-        <div className="flex flex-col py-4 space-y-8 min-h-60 max-h-70 overflow-y-auto">
+        <div className="flex flex-col py-4 space-y-8 max-h-70 overflow-y-auto border-t border-gray-200">
           {links.map(link => (
-            <div key={link.id} className="flex gap-4 lg:gap-5 items-center">
-              <div className="flex-none lg:flex-1 flex flex-col gap-1 min-w-0">
+            <div key={link.id} className="flex gap-4 lg:gap-5 items-center min-w-0 w-full">
+              <div className="flex-1 flex flex-col gap-1 min-w-0">
                 <a
                   href={`${appUrl}/${link.shortUrl}`}
-                  className="text-md leading-md text-blue-base cursor-pointer font-semibold truncate text-ellipsis hover:text-blue-dark hover:underline"
+                  className="text-md leading-md text-blue-base cursor-pointer font-semibold truncate block hover:text-blue-dark hover:underline"
                 >
                   {`${appUrl}/${link.shortUrl}`}
                 </a>
-                <p className="text-sm leading-sm text-gray-500">{link.originalUrl}</p>
+                <p className="text-sm leading-sm text-gray-500 truncate">{link.originalUrl}</p>
               </div>
               <p className="text-xs leading-xs text-gray-500 flex-none whitespace-nowrap">
                 {link.accessCount} acessos
@@ -89,6 +98,7 @@ export function Links({ links }: LinksProps) {
               <div className="flex items-center gap-1 flex-none">
                 <button
                   type="button"
+                  onClick={() => copyToClipboard(`${appUrl}/${link.shortUrl}`)}
                   className="p-2.5 text-gray-600 bg-gray-200 rounded-sm cursor-pointer border border-transparent hover:border-blue-base"
                 >
                   <Copy size={16} />
@@ -105,7 +115,7 @@ export function Links({ links }: LinksProps) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-3 items-center justify-center min-h-60">
+        <div className="flex flex-col gap-3 items-center justify-center min-h-60 border-t border-gray-200">
           <Link size={32} className="text-gray-400" />
           <p className="text-xs leading-xs text-gray-500 uppercase">
             Ainda não existem links cadastrados
