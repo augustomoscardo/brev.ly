@@ -115,11 +115,16 @@ export function Links({ links }: LinksProps) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-3 items-center justify-center min-h-60 border-t border-gray-200">
-          <Link size={32} className="text-gray-400" />
-          <p className="text-xs leading-xs text-gray-500 uppercase">
-            Ainda não existem links cadastrados
-          </p>
+        <div>
+          <div className="py-2.5">
+            <div className="h-px bg-gray-200" />
+          </div>
+          <div className="flex flex-col gap-3 items-center justify-center pt-4 pb-6">
+            <Link size={32} className="text-gray-400" />
+            <p className="text-xs leading-xs text-gray-500 uppercase">
+              Ainda não existem links cadastrados
+            </p>
+          </div>
         </div>
       )}
     </div>

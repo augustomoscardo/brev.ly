@@ -15,7 +15,7 @@ const indexRoute = createRoute({
 
 const redirectRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '$url', // Isso captura `/:url`
+  path: '$url',
   component: Redirect,
 })
 
