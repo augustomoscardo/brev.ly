@@ -8,7 +8,14 @@ FROM base AS dependencies
 
 WORKDIR /usr/src/app
 
+# Install postgresql-client to use pg_isready
+RUN apt-get update && apt-get install -y postgresql-client
+
 COPY package.json pnpm-lock.yaml ./
+COPY drizzle.config.ts ./
+COPY src/infra/db/migrations src/infra/db/migrations
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN pnpm install
 
@@ -19,6 +26,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 COPY --from=dependencies /usr/src/app/node_modules ./node_modules
+COPY --from=dependencies /usr/src/app/drizzle.config.ts ./drizzle.config.ts
 
 RUN pnpm run build
 RUN pnpm prune --prod
@@ -31,13 +39,9 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json ./package.json
-COPY --from=build /usr/src/app/drizzle.config.ts ./drizzle.config.ts
-COPY --from=build /usr/src/app/entrypoint.sh ./entrypoint.sh
-
-RUN chmod +x ./entrypoint.sh
 
 EXPOSE 3333
 
-ENTRYPOINT [ "./entrypoint.sh" ]
+# ENTRYPOINT [ "./entrypoint.sh" ]
 
-# CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start" ]
