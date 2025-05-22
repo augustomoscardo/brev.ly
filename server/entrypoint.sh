@@ -1,3 +1,5 @@
 #!/bin/bash
+set -e
 
-pnpm run drizzle-kit migrate
+npx drizzle-kit migrate
+npm run start

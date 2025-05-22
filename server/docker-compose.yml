@@ -13,10 +13,13 @@ services:
       - "./docker:/docker-entrypoint-initdb.d"
 
   app:
-    container_name: brevy-server
-    build: .
+    container_name: brevly-server
+    build: 
+      context: .
     ports:
       - 3333:3333
+    depends_on:
+      - pg
     environment:
       - DATABASE_URL=postgresql://docker:docker@pg:5432/brevly
       - CLOUDFARE_ACCOUNT_ID=f8663dc5463099aa45a302231ec56f3d
@@ -24,5 +27,3 @@ services:
       - CLOUDFARE_SECRET_ACCESS_KEY=44b38df47eebe625935adaa5bd823ff21077964e68c84be73f1fb5aabc30fa2f
       - CLOUDFARE_BUCKET=brevly
       - CLOUDFARE_PUBLIC_URL=https://pub-c5887eb7c8b441f58ec38b9b5e55cdc0.r2.dev
-    depends_on:
-      - pg
