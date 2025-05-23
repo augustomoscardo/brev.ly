@@ -91,7 +91,7 @@ export function CreateLinkForm() {
           <label htmlFor="shortUrl" className="text-gray-500 text-xs leading-xs uppercase">
             Link Encurtado
           </label>
-          <div className="flex w-full items-center border border-gray-300 rounded-lg p-4 text-gray-400">
+          <div className="flex w-full items-center border border-gray-300 rounded-lg p-4 text-gray-400 focus-within:border-blue-base">
             <label htmlFor="shortUrl" className="inline-block pointer-none text-md leading-md">
               brev.ly/
             </label>
