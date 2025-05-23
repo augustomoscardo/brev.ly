@@ -15,19 +15,19 @@ services:
 
   migratedb:
     container_name: migratedb
-    build: 
+    build:
       context: .
       target: dependencies
     depends_on:
       - pg
     environment:
-      - DATABASE_URL=postgresql://docker:docker@pg:5432/brevly
+      - DATABASE_URL=
     command: sh /entrypoint.sh
     working_dir: /usr/src/app
 
   app:
     container_name: brevly-server
-    build: 
+    build:
       context: .
     ports:
       - 3333:3333
@@ -35,12 +35,12 @@ services:
       - pg
       - migratedb
     environment:
-      - DATABASE_URL=postgresql://docker:docker@pg:5432/brevly
-      - CLOUDFARE_ACCOUNT_ID=f8663dc5463099aa45a302231ec56f3d
-      - CLOUDFARE_ACCESS_KEY_ID=15a4c47b1aec526cbc9fcae85fe1bd6f
-      - CLOUDFARE_SECRET_ACCESS_KEY=44b38df47eebe625935adaa5bd823ff21077964e68c84be73f1fb5aabc30fa2f
-      - CLOUDFARE_BUCKET=brevly
-      - CLOUDFARE_PUBLIC_URL=https://pub-c5887eb7c8b441f58ec38b9b5e55cdc0.r2.dev
+      - DATABASE_URL=
+      - CLOUDFARE_ACCOUNT_ID=
+      - CLOUDFARE_ACCESS_KEY_ID=
+      - CLOUDFARE_SECRET_ACCESS_KEY=
+      - CLOUDFARE_BUCKET=
+      - CLOUDFARE_PUBLIC_URL=
 
 volumes:
   pgdata:
